@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import AuthContext, { AuthProvider } from "../../contexts/auth.context";
+import AuthContext from "../../contexts/auth.context";
 import Button from "../common/Button";
 
 export default function Signup() {

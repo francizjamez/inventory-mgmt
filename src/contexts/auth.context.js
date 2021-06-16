@@ -1,3 +1,4 @@
+import { useHistory } from "react-router-dom";
 import { logInWithEmail, signUpWithEmail } from "../firebase/auth.controller";
 
 const { createContext, useState } = require("react");
@@ -10,12 +11,14 @@ export const AuthProvider = (props) => {
   const [user, setUser] = useState(false);
   const [loginData, setLoginData] = useState({});
   const [signupData, setSignupData] = useState({});
+  const history = useHistory();
 
   async function handleSignup(e) {
     e.preventDefault();
 
     try {
       await signUpWithEmail(signupData.email, signupData.password);
+      history.push("/login");
     } catch (err) {
       alert(err);
     }
@@ -37,7 +40,7 @@ export const AuthProvider = (props) => {
     setLoginData({ ...loginData, email: e.target.value });
   }
 
-  function emailPasswordChange(e) {
+  function passwordLoginChange(e) {
     setLoginData({ ...loginData, password: e.target.value });
   }
 
@@ -45,7 +48,9 @@ export const AuthProvider = (props) => {
     e.preventDefault();
 
     try {
-      await logInWithEmail(signupData.email, signupData.password);
+      const res = await logInWithEmail(loginData.email, loginData.password);
+      setUser(res);
+      history.push("/");
     } catch (err) {
       alert(err);
     }
@@ -58,7 +63,7 @@ export const AuthProvider = (props) => {
     passwordSignupChange,
     confirmPasswordSignupChange,
     emailLoginChange,
-    emailPasswordChange,
+    passwordLoginChange,
     handleLogin,
   };
 

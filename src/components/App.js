@@ -1,26 +1,32 @@
-import { useContext, useEffect } from "react";
-import { useHistory, Switch, Route } from "react-router-dom";
-import AuthContext from "../contexts/auth.context";
+// import { useContext, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
+// import AuthContext from "../contexts/auth.context";
 import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
 import Nav from "./Nav";
 import { AuthProvider } from "../contexts/auth.context";
+import Categories from "./Categories";
+import { ItemProvider } from "../contexts/item.context";
 
 function App() {
-  const history = useHistory();
-  const { user } = useContext(AuthContext);
+  // const history = useHistory();
+  // const { user } = useContext(AuthContext);
 
-  useEffect(() => {
-    history.push("/login");
-  }, []);
+  // useEffect(() => {
+  //   if
+  //   history.push("/login");
+  // }, []);
 
   return (
     <AuthProvider>
-      <Nav />
-      <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-      </Switch>
+      <ItemProvider>
+        <Nav />
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/" component={Categories} />
+        </Switch>
+      </ItemProvider>
     </AuthProvider>
   );
 }

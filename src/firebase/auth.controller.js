@@ -1,15 +1,15 @@
 import firebase from "./firebase.config";
-import firestoreRef from "./firebase.config";
 
 export async function logInWithEmail(email, password) {
-  await firebase
+  return await firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then(async (userCredential) => {
       // Signed in
-      var user = userCredential.user;
+      const user = userCredential.user;
 
-      return { ...user };
+      console.log(user.email);
+      return { email: user.email };
       // ...
     })
     .catch((error) => {
@@ -26,7 +26,6 @@ export async function signUpWithEmail(email, password) {
     .then(async (userCredential) => {
       // Signed in
       var user = userCredential.user;
-      console.log(user);
       //   firestoreRef.collection("users").add({ email: email });
       return user;
       // ...

@@ -13,6 +13,15 @@ export async function add(item, collection) {
 
 export async function getItemCollectionFromDatabase(collection) {
   const res = await firestoreRef.collection(collection).get();
-  const itemCollections = res.docs.map((doc) => doc.data());
+  const itemCollections = res.docs.map((doc) => {
+    let newItem = doc.data();
+    newItem.id = doc.id;
+    return newItem;
+  });
   return itemCollections;
+}
+
+export async function deleteItemFromDatabase(item, collection) {
+  const res = await firestoreRef.collection(collection).doc(item).delete();
+  return res;
 }

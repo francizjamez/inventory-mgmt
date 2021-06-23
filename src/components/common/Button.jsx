@@ -7,8 +7,6 @@ export default function Button(props) {
     : (buttonClasses += `bg-green-600 `);
   props.disabled && (buttonClasses += " bg-opacity-30 cursor-none");
   buttonClasses += props.className;
-
-  console.log(props.disabled);
   return (
     <button {...props} className={buttonClasses}>
       {props.children}

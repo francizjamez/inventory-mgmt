@@ -9,14 +9,6 @@ import Categories from "./Categories";
 import { ItemProvider } from "../contexts/item.context";
 
 function App() {
-  // const history = useHistory();
-  // const { user } = useContext(AuthContext);
-
-  // useEffect(() => {
-  //   if
-  //   history.push("/login");
-  // }, []);
-
   return (
     <AuthProvider>
       <ItemProvider>

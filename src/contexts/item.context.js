@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import {
   add,
+  deleteItemFromDatabase,
   getItemCollectionFromDatabase,
 } from "../firebase/item.controller";
 
@@ -14,6 +15,8 @@ export const ItemProvider = (props) => {
   const [showForm, setShowForm] = useState(false);
   const [itemData, setItemData] = useState({});
   const [dataUpdate, setDataUpdate] = useState(false);
+  const [updatedItems, setUpdatedItems] = useState(false);
+
   const location = useLocation();
 
   const toggleForm = () => {
@@ -50,6 +53,7 @@ export const ItemProvider = (props) => {
         break;
       default:
     }
+    refreshInventory();
 
     toggleForm();
 
@@ -58,6 +62,17 @@ export const ItemProvider = (props) => {
 
   const getItemCollections = async (collection) => {
     return await getItemCollectionFromDatabase(collection);
+  };
+
+  const deleteItem = async (item, collection) => {
+    await deleteItemFromDatabase(item, collection);
+    refreshInventory();
+  };
+
+  const refreshInventory = () => {
+    setUpdatedItems(true);
+
+    setTimeout(() => setUpdatedItems(false), 10);
   };
 
   const values = {
@@ -71,6 +86,8 @@ export const ItemProvider = (props) => {
     getItemCollections,
     dataUpdate,
     setDataUpdate,
+    updatedItems,
+    deleteItem,
   };
   return (
     <ItemContext.Provider value={values}>{props.children}</ItemContext.Provider>

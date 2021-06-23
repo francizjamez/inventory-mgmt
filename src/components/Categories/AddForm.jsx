@@ -7,8 +7,6 @@ export default function AddForm(props) {
   const item = useContext(ItemContext);
 
   const location = useLocation();
-
-  console.log(location);
   if (!props.show) {
     return <></>;
   }
